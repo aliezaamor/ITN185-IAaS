@@ -25,8 +25,7 @@ $adminName = $_SESSION['user_name'] ?? 'ALIEZA';
             <p><strong><?= htmlspecialchars($adminName) ?></strong></p>
             <p style="font-size:12px;color:#777;">Administrator</p>
 
-            <!-- ✅ ONLY LOGOUT -->
-            <a href="/student_inventory/login/user_login.php" class="dropdown-btn logout">Logout</a>
+            <a href="../login/user_login.php" class="dropdown-btn logout">Logout</a>
         </div>
     </div>
 

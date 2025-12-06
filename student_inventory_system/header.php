@@ -1,19 +1,17 @@
 <?php
     if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+        session_start();
+    }
 
-// Detect who is logged in
-if (isset($_SESSION['admin_id'])) {
-    $username = $_SESSION['admin_name'];
-    $email    = $_SESSION['admin_email'];
-    $profileLink = "/student_inventory/admin_profile.php"; // ADMIN PROFILE
-} else {
+    // Always use user session only
     $username = $_SESSION['user_name'] ?? "GUEST";
     $email    = $_SESSION['user_email'] ?? "No email";
-    $profileLink = "/student_inventory/login/user_profile.php"; // USER PROFILE
-}
-
+    $basePath = "/student_inventory/ITN185-IAaS/student_inventory_system/";
+    $profileLink = $basePath . "login/user_profile.php";
+    $logoutLink  = $basePath . "login/user_login.php";
+    $homelink    = $basePath . "userHomepage.php";
+    $aboutlink    = $basePath . "about.php";
+    $contactlink    = $basePath . "contact.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +23,7 @@ if (isset($_SESSION['admin_id'])) {
 <header class="top-header">
 
     <!-- LOGO -->
-    <a href="/student_inventory/userHomepage.php" class="brand">
+    <a href="<?= $homelink ?>" class="brand">
     MyEdu<span>.Keep</span>
 </a>
 
@@ -38,10 +36,16 @@ if (isset($_SESSION['admin_id'])) {
 
     <!-- NAV -->
     <nav class="nav-pill">
-        <a class="active" href="/student_inventory/userHomepage.php">HOME</a>
-        <a href="#">ABOUT</a>
-        <a href="#">CONTACT</a>
-    </nav>
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'userHomepage.php' ? 'active' : '' ?>" 
+       href="<?= $homelink ?>">HOME</a>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>" 
+       href="<?= $aboutlink ?>">ABOUT</a>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>" 
+       href="<?= $contactlink ?>">CONTACT</a>
+</nav>
+
 
     <!-- ========== USER DROPDOWN ========== -->
     <div class="user-dropdown">
@@ -55,7 +59,7 @@ if (isset($_SESSION['admin_id'])) {
             <p class="email"><?php echo htmlspecialchars($email); ?></p>
 
             <a href="<?= $profileLink ?>" class="dropdown-btn">Profile</a>
-            <a href="/student_inventory/login/user_login.php" class="dropdown-btn logout">Logout</a>
+            <a href="<?= $logoutLink ?>" class="dropdown-btn logout">Logout</a>
         </div>
     </div>
 

@@ -151,9 +151,9 @@ body{
 
 .close{
     position:absolute;
-    top:15px;
-    right:18px;
-    font-size:30px;
+    top:-15px;
+    right:2px;
+    font-size:40px;
     cursor:pointer;
 }
 

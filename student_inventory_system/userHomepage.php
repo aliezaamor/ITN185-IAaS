@@ -1,5 +1,13 @@
 <?php 
     require_once 'login/auth.php';
+
+    require_once 'addItems/addItem_model.php';
+$itemModel = new addItem_Model();
+
+$search = $_GET['search'] ?? null;
+$items = $itemModel->fetch($search);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
 }
 
 // USER LOGIN
-header("Location: /student_inventory/userHomepage.php");
+header("Location: ../userHomepage.php");
 exit();
 
 
