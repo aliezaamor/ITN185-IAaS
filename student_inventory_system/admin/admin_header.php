@@ -10,7 +10,7 @@ $adminName = $_SESSION['user_name'] ?? 'ALIEZA';
 <header class="top-header">
 
     <!-- LOGO -->
-    <a href="/student_inventory/adminHomepage.php" class="brand">
+    <a href="../admin/adminHomepage.php" class="brand">
         MyEdu<span>.Keep</span> <small style="font-size:13px;color:#b83f3f;">ADMIN</small>
     </a>
 

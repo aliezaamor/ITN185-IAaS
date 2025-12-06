@@ -280,7 +280,6 @@ $items = $itemModel->fetch($search);
 
 </section>
 
-
     <?php include 'footer.php'; ?>
 
 </body>

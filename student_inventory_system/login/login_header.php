@@ -14,10 +14,18 @@
 
     <!-- NAV -->
     <nav class="nav-pill">
-        <a class="active" href="user_login.php">HOME</a>
-        <a href="#">ABOUT</a>
-        <a href="#">CONTACT</a>
-    </nav>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'user_login.php' ? 'active' : '' ?>" 
+       href="user_login.php">HOME</a>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>" 
+       href="about.php">ABOUT</a>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>" 
+       href="contact.php">CONTACT</a>
+
+</nav>
+
 
     <div class="profile-badge" onclick="window.location.href='user_index.php'">
         <span>LOGIN</span>

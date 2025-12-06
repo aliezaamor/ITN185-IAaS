@@ -75,27 +75,38 @@ class addItem_Model {
 
     // FETCH ITEMS FOR LOGGED IN USER
     public function fetch($search = null) {
-        $user_id = $_SESSION['user_id'];
+    if (!isset($_SESSION['user_id'])) return [];
+    $user_id = $_SESSION['user_id'];
 
-        $query = "SELECT * FROM items WHERE user_id = $user_id";
-
-        if ($search) {
-            $query .= " AND (item_name LIKE '%$search%' 
-                         OR item_status LIKE '%$search%'
-                         OR item_type LIKE '%$search%')";
-        }
-
-        $result = $this->conn->query($query);
-        $data = [];
-
-        if ($result) {
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
-            }
-        }
-
-        return $data;
+    $query = "SELECT * FROM items WHERE user_id = ?";
+    
+    if ($search) {
+        $search = "%{$search}%";
+        $query .= " AND (item_name LIKE ? 
+                      OR item_status LIKE ?
+                      OR item_type LIKE ?
+                      OR details LIKE ?)";
     }
+
+    $stmt = $this->conn->prepare($query);
+
+    if ($search) {
+        $stmt->bind_param("issss", $user_id, $search, $search, $search, $search);
+    } else {
+        $stmt->bind_param("i", $user_id);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $items = [];
+    while ($row = $result->fetch_assoc()) {
+        $items[] = $row;
+    }
+
+    return $items;
+}
+
 
     // ----------------------------------
     // DELETE ITEM

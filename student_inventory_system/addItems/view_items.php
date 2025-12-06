@@ -2,28 +2,29 @@
 require_once '../login/auth.php';
 include 'addItem_model.php';
 
-/* ----------------------------
-   GET CATEGORY FROM URL
------------------------------*/
-if (!isset($_GET['type'])) {
+$model = new addItem_Model();
+
+if (isset($_GET['search'])) {
+    $keyword = $_GET['search'];
+    $items = $model->fetch($keyword);
+    $title = "Search results for: " . htmlspecialchars($keyword);
+
+} else if (isset($_GET['type'])) {
+    $category = $_GET['type'];
+    $items = $model->fetch($category);
+    $title = htmlspecialchars($category) . " Items";
+
+} else {
     header("Location: ../userHomepage.php");
     exit();
 }
-
-$category = $_GET['type'];
-
-/* ----------------------------
-   FETCH USER ITEMS
------------------------------*/
-$model = new addItem_Model();
-$items = $model->fetch($category);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title><?php echo htmlspecialchars($category); ?> Items</title>
+<title><?= $title ?></title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -135,6 +136,8 @@ body{
     border-radius:18px;
     position:relative;
     animation:zoom .25s ease;
+    overflow-y: auto;
+    max-height: 80%;
 }
 
 @keyframes zoom{
@@ -172,6 +175,10 @@ body{
     border-radius:999px;
 }
 
+.modal-content p{
+    text-align:center;
+}
+
 .edit-btn{
     background:#4CAF50;
 }
@@ -180,7 +187,6 @@ body{
     background:#E74C3C;
 }
 
-
 </style>
 
 </head>
@@ -188,7 +194,7 @@ body{
 
 <?php include '../header.php'; ?>
 
-<h1 class="title"><?php echo htmlspecialchars($category); ?></h1>
+<h1 class="title"><?php echo $title; ?></h1>
 
 <!---------------- ITEMS GRID ---------------->
 <div class="item-grid">
@@ -204,13 +210,13 @@ body{
     <?php foreach($items as $item): ?>
 
 <div class="item"
-    onclick="openItem(
-        '<?php echo addslashes($item['item_name']); ?>',
-        '<?php echo addslashes($item['details']); ?>',
-        '<?php echo addslashes($item['item_status']); ?>',
-        '<?php echo addslashes($item['item_picture']); ?>',
-        '<?php echo $item['item_id']; ?>'
-    )">
+    onclick="openItem(
+        <?php echo htmlspecialchars(json_encode($item['item_name']), ENT_QUOTES, 'UTF-8'); ?>,
+        <?php echo htmlspecialchars(json_encode($item['details']), ENT_QUOTES, 'UTF-8'); ?>,
+        <?php echo htmlspecialchars(json_encode($item['item_status']), ENT_QUOTES, 'UTF-8'); ?>,
+        <?php echo htmlspecialchars(json_encode($item['item_picture']), ENT_QUOTES, 'UTF-8'); ?>,
+        '<?php echo $item['item_id']; ?>'
+    )">
 
     <img src="<?php echo htmlspecialchars($item['item_picture']); ?>">
 

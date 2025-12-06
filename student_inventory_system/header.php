@@ -30,9 +30,12 @@
 
     <!-- SEARCH -->
     <div class="search-box">
-        <input type="text" placeholder="Search products...">
-        <ion-icon name="search-outline"></ion-icon>
-    </div>
+    <form action="<?= $basePath ?>addItems/view_items.php" method="GET">
+        <input type="text" name="search" placeholder="Search items..." required>
+        <ion-icon name="search-outline" onclick="this.parentNode.parentNode.submit()"></ion-icon>
+    </form>
+</div>
+
 
     <!-- NAV -->
     <nav class="nav-pill">
