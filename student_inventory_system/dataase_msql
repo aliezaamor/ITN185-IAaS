@@ -1,0 +1,67 @@
+-- ===============================================================
+-- Database: student_inventory
+-- Description: MyEdu.Keep Inventory System
+-- ===============================================================
+
+-- Create Database
+CREATE DATABASE IF NOT EXISTS `student_inventory` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `student_inventory`;
+
+-- ===============================================================
+-- Table: user_login
+-- Stores user accounts
+-- ===============================================================
+
+CREATE TABLE IF NOT EXISTS `user_login` (
+  `user_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(100) NOT NULL,
+  `user_email` VARCHAR(100) NOT NULL,
+  `address` VARCHAR(100) NOT NULL,
+  `mobile_number` VARCHAR(100) NOT NULL,
+  `user_password` VARCHAR(100) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Sample data for user_login
+INSERT INTO `user_login` (`user_name`, `user_email`, `address`, `mobile_number`, `user_password`, `created_at`) VALUES
+('Alieza Amor Atienda', 'aliezaamor@gmail.com', 'Biga, Lugait, Misamis Oriental', '09657338711', '$2y$10$/nW6wTzDsdd3sFklBzhOhOjd49/YXGIdBoNLrqtQ7U8iB5mlLy1Z6', '2025-12-04 12:22:54'),
+('amor', 'amor@gmail.com', 'biga', '098', '$2y$10$t1K/BE5byln5uwcuQUhGK.FbmnLKeFpGUQbY8TePKsELXVkSpu4hi', '2025-12-04 12:22:54'),
+('Buday', 'buday@gmail.com', 'Biga', '091', '$2y$10$of.x91RU6syiK3F2ro1z6uk5nKNaAkZ1xgVysANV5O8oro.4yt/cy', '2025-12-04 12:22:54'),
+('Alieza', 'admin@gmail.com', 'Veyga Ceytey', '09657338711', '$2y$10$Ug/1jY7QBZ/baOBp8DoKCeFVOVUzpSHf2ypPiEMrvYpVal31vlClW', '2025-12-04 12:22:54'),
+('thor', 'thor@gmail.com', 'beyga', '09123456789', '$2y$10$VNjnjatWjugokMiC567HWevW1vPxvwYHtTJEqWpypSscsczRWi.4K', '2025-12-04 12:22:54'),
+('nezuko', 'nezuko@gmail.com', '9fai', '488', '$2y$10$kVpJAv0g5yMqW7kyHJELRO2k8RY8oUS6xFwV3w5x5pZ1cPP2L7aty', '2025-12-04 12:22:54'),
+('tanjiro', 'tanjiro@gmail.com', 'sjkfhj', '18948', '$2y$10$dFMAFQJt0d6Ii/tfd6EQveWjRtyCH6XHgVpSHmbCwn7y.nvrztmKe', '2025-12-04 12:22:54'),
+('Miamori', 'miamori@gmail.com', 'Zone 5, Biga, Lugait, Misamis Oriental', '0987654321', '$2y$10$yaenquI1sYqCpzUb.lDOQOUNT.TpfhPE8DWa9ZIWKFrq87s0WpaJa', '2025-12-04 13:49:22'),
+('Dr. Chopper', 'chopper@gmail.com', 'Thousand Sunny', '0987654321', '$2y$10$8giGR95Rx.y.Pk.x7Qfmx.Qm6bxYc6sei/IUuNwu/ht8QO6apOgYi', '2025-12-06 18:09:51'),
+('Zoro', 'zoro@gmail.com', 'Huhu. hu', '7645657', '$2y$10$CLU2icXsGKM/yKouRdj8.ucF8kDAulutg9jEnu2X/gIrMhItJOLqG', '2025-12-06 18:20:16');
+
+-- ===============================================================
+-- Table: items
+-- Stores student items
+-- ===============================================================
+
+CREATE TABLE IF NOT EXISTS `items` (
+  `item_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `item_name` VARCHAR(150) NOT NULL,
+  `item_picture` VARCHAR(255) NOT NULL,
+  `item_type` VARCHAR(120) NOT NULL,
+  `details` TEXT DEFAULT NULL,
+  `item_status` ENUM('Owned','Missing','Recovered','Disposed') NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`item_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_login`(`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Sample data for items
+INSERT INTO `items` (`user_id`, `item_name`, `item_picture`, `item_type`, `details`, `item_status`, `created_at`) VALUES
+(14, 'Amor-Cert', '../uploads/1764856310_unnamed (1).jpg', 'Academic & Study Materials', 'Cert From TeamBuilding', 'Owned', '2025-12-04 13:51:50'),
+(14, 'FoodDrive Logo', '../uploads/1765032296_Number5.PNG', 'Academic & Study Materials', 'ENTREP START-UP', 'Owned', '2025-12-06 14:44:56'),
+(14, 'Boxing Gloves', '../uploads/1765032355_Amor.png', 'Sports & Activity Equipment', 'MuayThai ', 'Owned', '2025-12-06 14:45:55'),
+(15, 'Chopper\'s Rumble Ball', '../uploads/1765044945_ChopperRumbleBall.PNG', 'Valuables', 'Special transformation item details...', 'Owned', '2025-12-06 18:15:45'),
+(15, 'Chopper\'s Rumble Ball', '../uploads/1765045091_ChopperRumbleBall.PNG', 'Food & Drink Items', 'asfdsfg', 'Owned', '2025-12-06 18:18:11'),
+(16, 'chopper', '../uploads/1765045273_ChopperRumbleBall.PNG', 'Valuables', 'Special transformation item details...', 'Owned', '2025-12-06 18:21:13'),
+(16, 'chopper2', '../uploads/1765045312_ChopperRumbleBall.PNG', 'Valuables', 'Special transformation item details...', 'Owned', '2025-12-06 18:21:52'),
+(16, 'chopper napud', '../uploads/1765045359_ChopperRumbleBall.PNG', 'Valuables', 'Special transformation item details...', 'Owned', '2025-12-06 18:22:39');
