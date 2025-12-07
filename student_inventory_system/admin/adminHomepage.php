@@ -1,8 +1,10 @@
 <?php 
+//Load necessary functions and ensure admin authentication
 require_once 'admin_auth.php';
 require_once '../login/user_model.php';
 require_once '../addItems/addItem_model.php';
 
+// Create model objects to access database functions
 $userModel = new user_Model();
 $itemModel = new addItem_Model();
 
@@ -31,8 +33,160 @@ $itemDates = $itemModel->getItemDates();
     <title>Admin Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
 
-    <style>
+<body>
+
+<?php include "admin_header.php"; ?>
+
+<div class="container">
+
+    <h1 class="page-title">Admin Dashboard</h1>
+
+    <!-- Cards -->
+    <div class="dashboard">
+        <div class="card">
+            <h2><?= $totalUsers ?></h2>
+            <p>Total Users</p>
+        </div>
+
+        <div class="card">
+            <h2><?= $totalItems ?></h2>
+            <p>Total Logged Items</p>
+        </div>
+
+        <div class="card">
+            <h2><?= $newUsersToday ?></h2>
+            <p>New Users Today</p>
+        </div>
+
+        <div class="card">
+            <h2><?= $newItemsToday ?></h2>
+            <p>New Items Today</p>
+        </div>
+    </div>
+
+    <!-- Users Graph -->
+    <div class="graph-box">
+        <h2 class="section-title">User Growth Over Time</h2>
+        <canvas id="userChart"></canvas>
+    </div>
+
+    <!-- Items Graph -->
+    <div class="graph-box">
+        <h2 class="section-title">Items Posted Over Time</h2>
+        <canvas id="itemChart"></canvas>
+    </div>
+
+    <!-- User Table -->
+    <h2 class="section-title">User List & Item Counts</h2>
+    <table>
+        <tr>
+            <th>User Name</th>
+            <th>Total Items Posted</th>
+        </tr>
+
+        <?php foreach ($users as $u): ?>
+            <?php $count = $itemModel->countItemsByUser($u['user_id']); ?>
+            <tr>
+                <td>
+                    <a href="#" class="user-link" data-id="<?= $u['user_id'] ?>">
+                        <?= $u['user_name'] ?>
+                    </a>
+                </td>
+                <td><?= $count ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+</div>
+
+<!-- MODAL -->
+<div id="userModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <h2 style="color:#5A3E2B;margin-bottom:10px;">User Details</h2>
+        <p><strong>Name:</strong> <span id="m_name"></span></p>
+        <p><strong>Email:</strong> <span id="m_email"></span></p>
+        <p><strong>Address:</strong> <span id="m_address"></span></p>
+        <p><strong>Mobile:</strong> <span id="m_mobile"></span></p>
+        <p><strong>Total Items Posted:</strong> <span id="m_items"></span></p>
+    </div>
+</div>
+
+<!-- CHART SCRIPTS -->
+<script>
+const userDates = <?= json_encode(array_keys($userDates)) ?>;
+const userCounts = <?= json_encode(array_values($userDates)) ?>;
+
+const itemDates = <?= json_encode(array_keys($itemDates)) ?>;
+const itemCounts = <?= json_encode(array_values($itemDates)) ?>;
+
+new Chart(document.getElementById("userChart"), {
+    type: "line",
+    data: {
+        labels: userDates,
+        datasets: [{
+            label: "Users Registered",
+            data: userCounts,
+            borderWidth: 3,
+            borderColor: "rgb(184,63,63)",
+            backgroundColor: "rgba(184,63,63,0.25)",
+            fill: true,
+            tension: 0.35
+        }]
+    }
+});
+
+new Chart(document.getElementById("itemChart"), {
+    type: "bar",
+    data: {
+        labels: itemDates,
+        datasets: [{
+            label: "Items Posted",
+            data: itemCounts,
+            backgroundColor: "rgba(90,62,43,0.8)",
+        }]
+    }
+});
+
+// MODAL JS
+document.querySelectorAll(".user-link").forEach(link => {
+    link.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const id = this.dataset.id;
+
+        fetch("get_user_info.php?id=" + id)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("m_name").textContent = data.user_name;
+                document.getElementById("m_email").textContent = data.user_email;
+                document.getElementById("m_address").textContent = data.address;
+                document.getElementById("m_mobile").textContent = data.mobile_number;
+                document.getElementById("m_items").textContent = data.total_items;
+
+                document.getElementById("userModal").style.display = "block";
+            });
+    });
+});
+
+document.querySelector(".close").onclick = () => {
+    document.getElementById("userModal").style.display = "none";
+};
+
+window.onclick = e => {
+    if (e.target == document.getElementById("userModal")) {
+        document.getElementById("userModal").style.display = "none";
+    }
+};
+</script>
+
+</body>
+</html>
+
+<style>
         body { 
             font-family: 'Poppins', sans-serif; 
             background: #f2ece7; 
@@ -191,155 +345,3 @@ $itemDates = $itemModel->getItemDates();
         @keyframes slideUp { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
 
     </style>
-</head>
-
-<body>
-
-<?php include "admin_header.php"; ?>
-
-<div class="container">
-
-    <h1 class="page-title">Admin Dashboard</h1>
-
-    <!-- Cards -->
-    <div class="dashboard">
-        <div class="card">
-            <h2><?= $totalUsers ?></h2>
-            <p>Total Users</p>
-        </div>
-
-        <div class="card">
-            <h2><?= $totalItems ?></h2>
-            <p>Total Logged Items</p>
-        </div>
-
-        <div class="card">
-            <h2><?= $newUsersToday ?></h2>
-            <p>New Users Today</p>
-        </div>
-
-        <div class="card">
-            <h2><?= $newItemsToday ?></h2>
-            <p>New Items Today</p>
-        </div>
-    </div>
-
-    <!-- Users Graph -->
-    <div class="graph-box">
-        <h2 class="section-title">User Growth Over Time</h2>
-        <canvas id="userChart"></canvas>
-    </div>
-
-    <!-- Items Graph -->
-    <div class="graph-box">
-        <h2 class="section-title">Items Posted Over Time</h2>
-        <canvas id="itemChart"></canvas>
-    </div>
-
-    <!-- User Table -->
-    <h2 class="section-title">User List & Item Counts</h2>
-    <table>
-        <tr>
-            <th>User Name</th>
-            <th>Total Items Posted</th>
-        </tr>
-
-        <?php foreach ($users as $u): ?>
-            <?php $count = $itemModel->countItemsByUser($u['user_id']); ?>
-            <tr>
-                <td>
-                    <a href="#" class="user-link" data-id="<?= $u['user_id'] ?>">
-                        <?= $u['user_name'] ?>
-                    </a>
-                </td>
-                <td><?= $count ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-
-</div>
-
-<!-- MODAL -->
-<div id="userModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-
-        <h2 style="color:#5A3E2B;margin-bottom:10px;">User Details</h2>
-        <p><strong>Name:</strong> <span id="m_name"></span></p>
-        <p><strong>Email:</strong> <span id="m_email"></span></p>
-        <p><strong>Address:</strong> <span id="m_address"></span></p>
-        <p><strong>Mobile:</strong> <span id="m_mobile"></span></p>
-        <p><strong>Total Items Posted:</strong> <span id="m_items"></span></p>
-    </div>
-</div>
-
-<!-- CHART SCRIPTS -->
-<script>
-const userDates = <?= json_encode(array_keys($userDates)) ?>;
-const userCounts = <?= json_encode(array_values($userDates)) ?>;
-
-const itemDates = <?= json_encode(array_keys($itemDates)) ?>;
-const itemCounts = <?= json_encode(array_values($itemDates)) ?>;
-
-new Chart(document.getElementById("userChart"), {
-    type: "line",
-    data: {
-        labels: userDates,
-        datasets: [{
-            label: "Users Registered",
-            data: userCounts,
-            borderWidth: 3,
-            borderColor: "rgb(184,63,63)",
-            backgroundColor: "rgba(184,63,63,0.25)",
-            fill: true,
-            tension: 0.35
-        }]
-    }
-});
-
-new Chart(document.getElementById("itemChart"), {
-    type: "bar",
-    data: {
-        labels: itemDates,
-        datasets: [{
-            label: "Items Posted",
-            data: itemCounts,
-            backgroundColor: "rgba(90,62,43,0.8)",
-        }]
-    }
-});
-
-// MODAL JS
-document.querySelectorAll(".user-link").forEach(link => {
-    link.addEventListener("click", function(e) {
-        e.preventDefault();
-
-        const id = this.dataset.id;
-
-        fetch("get_user_info.php?id=" + id)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("m_name").textContent = data.user_name;
-                document.getElementById("m_email").textContent = data.user_email;
-                document.getElementById("m_address").textContent = data.address;
-                document.getElementById("m_mobile").textContent = data.mobile_number;
-                document.getElementById("m_items").textContent = data.total_items;
-
-                document.getElementById("userModal").style.display = "block";
-            });
-    });
-});
-
-document.querySelector(".close").onclick = () => {
-    document.getElementById("userModal").style.display = "none";
-};
-
-window.onclick = e => {
-    if (e.target == document.getElementById("userModal")) {
-        document.getElementById("userModal").style.display = "none";
-    }
-};
-</script>
-
-</body>
-</html>

@@ -1,13 +1,13 @@
 <?php
+    // Load necessary functions and authenticate user
     require_once 'auth.php';
+    require_once 'user_model.php';
+    $model = new user_Model();
 
     // Get session values
     $username = $_SESSION['user_name'] ?? "GUEST";
     $email = $_SESSION['user_email'] ?? "No email";
     $user_id = $_SESSION['user_id'] ?? null;
-
-    require_once 'user_model.php';
-    $model = new user_Model();
 
     // Fetch full user details
     $user = $model->edit($user_id);
@@ -18,8 +18,59 @@
     <meta charset="UTF-8">
     <title>My Profile - MyEdu.Keep</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
 
-    <style>
+<?php include '../header.php'; ?>
+
+<div class="profile-wrapper">
+    <h1 class="title">My Profile</h1>
+
+    <div class="profile-content">
+
+        <!-- DETAILS SECTION -->
+        <div class="info-box">
+
+            <div class="field">
+                <label>Full Name:</label>
+                <p><?php echo htmlspecialchars($user['user_name']); ?></p>
+            </div>
+
+            <div class="field">
+                <label>Email Address:</label>
+                <p><?php echo htmlspecialchars($user['user_email']); ?></p>
+            </div>
+
+            <div class="field">
+                <label>Address:</label>
+                <p><?php echo htmlspecialchars($user['address']); ?></p>
+            </div>
+
+            <div class="field">
+                <label>Mobile Number:</label>
+                <p><?php echo htmlspecialchars($user['mobile_number']); ?></p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions">
+                <a class="btn edit-btn" href="user_edit.php?user_id=<?php echo $user_id; ?>">Edit Profile</a>
+                <a class="btn password-btn" href="change_password.php">Change Password</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<?php include '../footer.php'; ?>
+
+<!-- ICONS -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
+<style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -129,55 +180,3 @@
             }
         }
     </style>
-</head>
-<body>
-
-<?php include '../header.php'; ?>
-
-<div class="profile-wrapper">
-    <h1 class="title">My Profile</h1>
-
-    <div class="profile-content">
-
-        <!-- DETAILS SECTION -->
-        <div class="info-box">
-
-            <div class="field">
-                <label>Full Name:</label>
-                <p><?php echo htmlspecialchars($user['user_name']); ?></p>
-            </div>
-
-            <div class="field">
-                <label>Email Address:</label>
-                <p><?php echo htmlspecialchars($user['user_email']); ?></p>
-            </div>
-
-            <div class="field">
-                <label>Address:</label>
-                <p><?php echo htmlspecialchars($user['address']); ?></p>
-            </div>
-
-            <div class="field">
-                <label>Mobile Number:</label>
-                <p><?php echo htmlspecialchars($user['mobile_number']); ?></p>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="actions">
-                <a class="btn edit-btn" href="user_edit.php?user_id=<?php echo $user_id; ?>">Edit Profile</a>
-                <a class="btn password-btn" href="change_password.php">Change Password</a>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<?php include '../footer.php'; ?>
-
-<!-- ICONS -->
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-</body>
-</html>

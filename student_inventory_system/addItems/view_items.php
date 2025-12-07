@@ -1,14 +1,17 @@
 <?php
+// Load the authentication file to ensure only logged-in users can access this page
 require_once '../login/auth.php';
-include 'addItem_model.php';
+include 'addItem_model.php';// Load the model
 
-$model = new addItem_Model();
+$model = new addItem_Model();// Create a model instance
 
+// SEARCH MODE
 if (isset($_GET['search'])) {
     $keyword = $_GET['search'];
     $items = $model->fetch($keyword);
     $title = "Search results for: " . htmlspecialchars($keyword);
 
+// CATEGORY MODE
 } else if (isset($_GET['type'])) {
     $category = $_GET['type'];
     $items = $model->fetch($category);
@@ -27,6 +30,117 @@ if (isset($_GET['search'])) {
 <title><?= $title ?></title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<?php include '../header.php'; ?>
+
+<h1 class="title"><?php echo $title; ?></h1>
+
+<!---------------- ITEMS GRID ---------------->
+<div class="item-grid">
+
+<?php if(empty($items)): ?>
+
+    <div class="empty-msg">
+        No items logged yet in this category.
+    </div>
+
+<?php else: ?>
+
+    <?php foreach($items as $item): ?>
+
+<!-- Each item card -->
+<div class="item"
+    onclick="openItem(
+        <?php echo htmlspecialchars(json_encode($item['item_name']), ENT_QUOTES, 'UTF-8'); ?>,
+        <?php echo htmlspecialchars(json_encode($item['details']), ENT_QUOTES, 'UTF-8'); ?>,
+        <?php echo htmlspecialchars(json_encode($item['item_status']), ENT_QUOTES, 'UTF-8'); ?>,
+        <?php echo htmlspecialchars(json_encode($item['item_picture']), ENT_QUOTES, 'UTF-8'); ?>,
+        '<?php echo $item['item_id']; ?>'
+    )">
+
+    <img src="<?php echo htmlspecialchars($item['item_picture']); ?>">
+
+    <div class="item-info">
+
+        <h3><?php echo htmlspecialchars($item['item_name']); ?></h3>
+        <span class="status"><?php echo htmlspecialchars($item['item_status']); ?></span>
+
+    </div>
+
+</div>
+
+<?php endforeach; ?>
+
+
+
+<?php endif; ?>
+
+
+
+</div>
+<a class="back-btn" href="../userHomepage.php">← Back</a>
+
+<?php include '../footer.php'; ?>
+
+<!-- ITEM MODAL -->
+<div id="itemModal" class="modal">
+
+<div class="modal-content">
+
+    <span class="close" onclick="closeItem()">&times;</span>
+
+    <img id="modalImg">
+
+    <h2 id="modalTitle"></h2>
+
+    <span id="modalStatus" class="status"></span>
+
+    <p id="modalDetails"></p>
+
+    <div class="modal-actions">
+        <a id="editBtn" class="edit-btn">Edit Item</a>
+        <a id="deleteBtn" class="delete-btn"
+           onclick="return confirm('Delete this item?')">
+            Delete Item
+        </a>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+// Show the modal with selected item data
+function openItem(name, details, status, img, id){
+
+    document.getElementById("modalTitle").innerText = name;
+    document.getElementById("modalDetails").innerText = details;
+    document.getElementById("modalStatus").innerText = status;
+    document.getElementById("modalImg").src = img;
+
+    // Set edit / delete buttons with item ID
+    document.getElementById("editBtn").href =
+        "addItem_edit.php?id=" + id;
+
+    document.getElementById("deleteBtn").href =
+        "addItem_delete.php?id=" + id;
+
+    // Show modal
+    document.getElementById("itemModal").style.display = "block";
+}
+
+// Hide the modal
+function closeItem(){
+    document.getElementById("itemModal").style.display = "none";
+}
+</script>
+
+
+</body>
+</html>
 
 <style>
 
@@ -188,109 +302,3 @@ body{
 }
 
 </style>
-
-</head>
-<body>
-
-<?php include '../header.php'; ?>
-
-<h1 class="title"><?php echo $title; ?></h1>
-
-<!---------------- ITEMS GRID ---------------->
-<div class="item-grid">
-
-<?php if(empty($items)): ?>
-
-    <div class="empty-msg">
-        No items logged yet in this category.
-    </div>
-
-<?php else: ?>
-
-    <?php foreach($items as $item): ?>
-
-<div class="item"
-    onclick="openItem(
-        <?php echo htmlspecialchars(json_encode($item['item_name']), ENT_QUOTES, 'UTF-8'); ?>,
-        <?php echo htmlspecialchars(json_encode($item['details']), ENT_QUOTES, 'UTF-8'); ?>,
-        <?php echo htmlspecialchars(json_encode($item['item_status']), ENT_QUOTES, 'UTF-8'); ?>,
-        <?php echo htmlspecialchars(json_encode($item['item_picture']), ENT_QUOTES, 'UTF-8'); ?>,
-        '<?php echo $item['item_id']; ?>'
-    )">
-
-    <img src="<?php echo htmlspecialchars($item['item_picture']); ?>">
-
-    <div class="item-info">
-
-        <h3><?php echo htmlspecialchars($item['item_name']); ?></h3>
-        <span class="status"><?php echo htmlspecialchars($item['item_status']); ?></span>
-
-    </div>
-
-</div>
-
-<?php endforeach; ?>
-
-
-
-<?php endif; ?>
-
-
-
-</div>
-<a class="back-btn" href="../userHomepage.php">← Back</a>
-
-<?php include '../footer.php'; ?>
-
-<!-- ITEM MODAL -->
-<div id="itemModal" class="modal">
-
-<div class="modal-content">
-
-    <span class="close" onclick="closeItem()">&times;</span>
-
-    <img id="modalImg">
-
-    <h2 id="modalTitle"></h2>
-
-    <span id="modalStatus" class="status"></span>
-
-    <p id="modalDetails"></p>
-
-    <div class="modal-actions">
-        <a id="editBtn" class="edit-btn">Edit Item</a>
-        <a id="deleteBtn" class="delete-btn"
-           onclick="return confirm('Delete this item?')">
-            Delete Item
-        </a>
-    </div>
-
-</div>
-
-</div>
-
-<script>
-function openItem(name, details, status, img, id){
-
-    document.getElementById("modalTitle").innerText = name;
-    document.getElementById("modalDetails").innerText = details;
-    document.getElementById("modalStatus").innerText = status;
-    document.getElementById("modalImg").src = img;
-
-    document.getElementById("editBtn").href =
-        "addItem_edit.php?id=" + id;
-
-    document.getElementById("deleteBtn").href =
-        "addItem_delete.php?id=" + id;
-
-    document.getElementById("itemModal").style.display = "block";
-}
-
-function closeItem(){
-    document.getElementById("itemModal").style.display = "none";
-}
-</script>
-
-
-</body>
-</html>

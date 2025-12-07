@@ -1,12 +1,14 @@
 <?php 
     Class user_Model{
  
+         // Database connection properties
         private $server = "localhost";
         private $username = "root";
         private $password;
         private $db = "student_inventory";
         private $conn;
  
+        // Automatically connect to database when the class is created
         public function __construct(){
             try {
                  
@@ -15,7 +17,8 @@
                 echo "connection failed" . $e->getMessage();
             }
         }
- 
+        
+        // Insert new user
         public function insert(){
 
             if (isset($_POST['submit'])) {
@@ -67,6 +70,7 @@
             }
         }
     
+        // Fetch all users
         public function fetch(){
             $data = null;
  
@@ -79,6 +83,7 @@
             return $data;
         }
  
+        // Fetch single user by email
         public function fetch_single($user_email){
             $data = null;
          
@@ -96,7 +101,7 @@
         }
         
         
- 
+        // Edit user details
         public function edit($user_id){
  
             $data = null;
@@ -110,6 +115,7 @@
             return $data;
         }
  
+        // Update user details
         public function update($data){
 
             $query = "UPDATE user_login SET";
@@ -151,6 +157,7 @@
             }
         }
         
+        //update user password
        public function updatePassword($user_id, $new_password) {
             // Hash the raw new password
             $hashed = password_hash($new_password, PASSWORD_DEFAULT);
@@ -161,71 +168,71 @@
             return $stmt->execute();
         }
 
-
-
+        // Authenticate user login
         public function authenticate($user_email, $user_password) {
 
-    // Query user by email
-    $query = "SELECT * FROM user_login WHERE user_email='$user_email'";
-    $result = $this->conn->query($query);
+            // Query user by email
+            $query = "SELECT * FROM user_login WHERE user_email='$user_email'";
+            $result = $this->conn->query($query);
 
-    if ($result->num_rows == 1) {
+            if ($result->num_rows == 1) {
 
-        $user = $result->fetch_assoc();
+                $user = $result->fetch_assoc();
 
-        // Verify password
-        if (password_verify($user_password, $user['user_password'])) {
+                // Verify password
+                if (password_verify($user_password, $user['user_password'])) {
 
-            // --- Set common session data ---
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['user_name'] = $user['user_name'];
-            $_SESSION['user_email'] = $user['user_email'];
+                    // --- Set common session data ---
+                    $_SESSION['user_id'] = $user['user_id'];
+                    $_SESSION['user_name'] = $user['user_name'];
+                    $_SESSION['user_email'] = $user['user_email'];
 
-            // --- Determine role ---
-            if ($user['user_email'] === 'admin@gmail.com') {
-                $_SESSION['role'] = 'admin';
-            } else {
-                $_SESSION['role'] = 'user';
+                    // --- Determine role ---
+                    if ($user['user_email'] === 'admin@gmail.com') {
+                        $_SESSION['role'] = 'admin';
+                    } else {
+                        $_SESSION['role'] = 'user';
+                    }
+
+                    return true;  // Login successful
+                }
+
+                return false; // Password incorrect
             }
 
-            return true;  // Login successful
+            return false; // Email not found
         }
 
-        return false; // Password incorrect
-    }
-
-    return false; // Email not found
-}
-
-
+        // Count new users registered today
         public function countNewUsersToday() {
             $query = "SELECT COUNT(*) AS total FROM user_login WHERE DATE(created_at) = CURDATE()";
             $result = $this->conn->query($query)->fetch_assoc();
             return $result['total'];
         }
 
+        // Get user registration dates and counts
         public function getUserDates() {
-    $query = "SELECT DATE(created_at) AS d, COUNT(*) AS c 
-              FROM user_login GROUP BY DATE(created_at)";
-    $result = $this->conn->query($query);
+            $query = "SELECT DATE(created_at) AS d, COUNT(*) AS c 
+                    FROM user_login GROUP BY DATE(created_at)";
+            $result = $this->conn->query($query);
 
-    $data = [];
-    while ($r = $result->fetch_assoc()) {
-        $data[$r['d']] = $r['c'];
-    }
-    return $data;
-}
+            $data = [];
+            while ($r = $result->fetch_assoc()) {
+                $data[$r['d']] = $r['c'];
+            }
+            return $data;
+        }
 
-      
-public function fetchUserById($user_id) {
-    $query = "SELECT * FROM user_login WHERE user_id = '$user_id'";
-    $result = $this->conn->query($query);
+        // Fetch user by ID
+        public function fetchUserById($user_id) {
+            $query = "SELECT * FROM user_login WHERE user_id = '$user_id'";
+            $result = $this->conn->query($query);
 
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc();
-    }
-    return null;
-}
+            if ($result->num_rows > 0) {
+                return $result->fetch_assoc();
+            }
+            return null;
+        }
 
     }
  ?>

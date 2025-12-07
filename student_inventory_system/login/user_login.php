@@ -1,4 +1,5 @@
 <?php 
+    // Start session for user login page
     session_start();
 ?>
 <!DOCTYPE html>
@@ -8,29 +9,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyEdu.Keep</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+
+</head>
+<body>
+
+    <?php include 'login_header.php'; ?>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Organize Smarter, <br> Live Stress-Free</h1>
+            <p>Track, sort, and secure all your school essentials in one smart inventory system.</p>
+
+            <button class="btn-shop" onclick="window.location.href='user_index.php'">
+                LOG ITEMS
+            </button>
+        </div>
+
+        <img src="https://3.files.edl.io/57b6/21/08/03/152951-480c64db-8855-433b-9cea-7c55836efb1b.jpg" alt="School Supplies">
+    </section>
 
 
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: url("../pictures/backpic.png") center / cover no-repeat fixed;
-}
+    <?php include("../footer.php"); ?>
+
+</body>
+</html>
+
+<style>
 
 
-/* HERO LAYOUT */
-.hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 60px;
-    padding: 80px 10%;
-}
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: url("../pictures/backpic.png") center / cover no-repeat fixed;
+    }
 
-/* TEXT SIDE */
-.hero-text {
-    max-width: 480px;
-}
+
+    /* HERO LAYOUT */
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        padding: 80px 10%;
+    }
+
+    /* TEXT SIDE */
+    .hero-text {
+        max-width: 480px;
+    }
 
 .hero-text h1 {
     font-size: 50px;
@@ -108,43 +135,43 @@
             overflow: hidden;
         }
 
-        /* Blur background image layer */
-.category-box::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    background-size: cover;
-    background-position: center;
-    
-    filter: blur(3px);
-    transform: scale(1.05); /* avoids edge clipping */
-    transition: all 0.3s ease;
-}
+            /* Blur background image layer */
+    .category-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: inherit;
+        background-size: cover;
+        background-position: center;
+        
+        filter: blur(3px);
+        transform: scale(1.05); /* avoids edge clipping */
+        transition: all 0.3s ease;
+    }
 
-/* Optional dark glass overlay for text readability */
-.category-box::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.18);
-}
+    /* Optional dark glass overlay for text readability */
+    .category-box::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.18);
+    }
 
-/* Keep label above layers */
-.category-label {
-    position: relative;
-    z-index: 2;
-}
+    /* Keep label above layers */
+    .category-label {
+        position: relative;
+        z-index: 2;
+    }
 
-/* Hover: remove blur for clear view */
-.category-box:hover::before {
-    filter: blur(0);
-}
+    /* Hover: remove blur for clear view */
+    .category-box:hover::before {
+        filter: blur(0);
+    }
 
-/* Subtle zoom on hover */
-.category-box:hover {
-    transform: scale(1.03);
-}
+    /* Subtle zoom on hover */
+    .category-box:hover {
+        transform: scale(1.03);
+    }
 
         .category-label {
             position: absolute;
@@ -168,28 +195,3 @@
             font-size: 40px;
         }
     </style>
-
-</head>
-<body>
-
-    <?php include 'login_header.php'; ?>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Organize Smarter, <br> Live Stress-Free</h1>
-            <p>Track, sort, and secure all your school essentials in one smart inventory system.</p>
-
-            <button class="btn-shop" onclick="window.location.href='user_index.php'">
-                LOG ITEMS
-            </button>
-        </div>
-
-        <img src="https://3.files.edl.io/57b6/21/08/03/152951-480c64db-8855-433b-9cea-7c55836efb1b.jpg" alt="School Supplies">
-    </section>
-
-
-    <?php include("../footer.php"); ?>
-
-</body>
-</html>

@@ -7,10 +7,104 @@ require_once '../login/auth.php';
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <title>Add New Item</title>
+
+</head>
+<body>
+
+<!-- PAGE TITLE -->
+<h2 class="page-title">Add New Item</h2>
+
+<div class="container">
+<div class="row">
+<div class="col-md-5 mx-auto form-card">
+
+<?php
+include 'addItem_model.php';
+$addItem_model = new addItem_Model();
+if (!isset($_SESSION['user_id'])) {
+    die("Error: User not logged in. Please login first.");
+}
+
+$user_id = $_SESSION['user_id'];
+$addItem_model->insert($user_id);
+
+if (isset($_POST['submit'])) {
+    $user_id = $_SESSION['user_id'];  // ✔ get the logged-in user
+    $insert = $addItem_model->insert($user_id); 
+}
+?>
+
+<form action="" method="post" enctype="multipart/form-data">
+
+<!-- Item Name -->
+<div class="form-group">
+    <label>Item Name</label>
+    <input type="text" class="form-control" name="item_name" 
+           placeholder="e.g. Blue Notebook, Samsung Charger" required>
+</div>
+
+<!-- Category -->
+<div class="form-group">
+    <label>Item Category</label>
+    <select class="form-control" name="item_type" required>
+        <option value="Academic & Study Materials">Academic & Study Materials</option>
+        <option value="Digital & Electronic Devices">Digital & Electronic Devices</option>
+        <option value="Clothing & Accessories">Clothing & Accessories</option>
+        <option value="Bags & Storage Items">Bags & Storage Items</option>
+        <option value="Food & Drink Items">Food & Drink Items</option>
+        <option value="Personal Care & Hygiene">Personal Care & Hygiene</option>
+        <option value="Sports & Activity Equipment">Sports & Activity Equipment</option>
+        <option value="Valuables">Valuables</option>
+    </select>
+</div>
+
+<!-- Picture -->
+<div class="form-group">
+    <label>Item Picture</label>
+    <input type="file" class="form-control-file" name="item_picture"
+           accept="image/*" required>
+</div>
+
+<!-- Details -->
+<div class="form-group">
+    <label>Item Details</label>
+    <textarea class="form-control" name="details" rows="3"
+            placeholder="Add more description if needed..."></textarea>
+</div>
+
+<!-- Status -->
+<div class="form-group">
+    <label>Item Status</label>
+    <select class="form-control" name="item_status" required>
+        <option value="Owned">Owned</option>
+        <option value="Missing">Missing</option>
+        <option value="Recovered">Recovered</option>
+        <option value="Disposed">Disposed</option>
+    </select>
+
+    <small class="text-muted">
+        Choose the current condition of the item.
+    </small>
+</div>
+
+<!-- Buttons -->
+<button type="submit" name="submit" class="btn btn-block btn-submit">
+    Save Item
+</button>
+
+<a href="../userHomepage.php" class="back-btn">Go Back</a>
+
+</form>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>
 
 <style>
 
@@ -120,97 +214,3 @@ textarea:focus{
 }
 
 </style>
-</head>
-<body>
-
-<!-- PAGE TITLE -->
-<h2 class="page-title">Add New Item</h2>
-
-<div class="container">
-<div class="row">
-<div class="col-md-5 mx-auto form-card">
-
-<?php
-include 'addItem_model.php';
-$addItem_model = new addItem_Model();
-if (!isset($_SESSION['user_id'])) {
-    die("Error: User not logged in. Please login first.");
-}
-
-$user_id = $_SESSION['user_id'];
-$addItem_model->insert($user_id);
-
-if (isset($_POST['submit'])) {
-    $user_id = $_SESSION['user_id'];  // ✔ get the logged-in user
-    $insert = $addItem_model->insert($user_id); 
-}
-?>
-
-<form action="" method="post" enctype="multipart/form-data">
-
-<!-- Item Name -->
-<div class="form-group">
-    <label>Item Name</label>
-    <input type="text" class="form-control" name="item_name" 
-           placeholder="e.g. Blue Notebook, Samsung Charger" required>
-</div>
-
-<!-- Category -->
-<div class="form-group">
-    <label>Item Category</label>
-    <select class="form-control" name="item_type" required>
-        <option value="Academic & Study Materials">Academic & Study Materials</option>
-        <option value="Digital & Electronic Devices">Digital & Electronic Devices</option>
-        <option value="Clothing & Accessories">Clothing & Accessories</option>
-        <option value="Bags & Storage Items">Bags & Storage Items</option>
-        <option value="Food & Drink Items">Food & Drink Items</option>
-        <option value="Personal Care & Hygiene">Personal Care & Hygiene</option>
-        <option value="Sports & Activity Equipment">Sports & Activity Equipment</option>
-        <option value="Valuables">Valuables</option>
-    </select>
-</div>
-
-<!-- Picture -->
-<div class="form-group">
-    <label>Item Picture</label>
-    <input type="file" class="form-control-file" name="item_picture"
-           accept="image/*" required>
-</div>
-
-<!-- Details -->
-<div class="form-group">
-    <label>Item Details</label>
-    <textarea class="form-control" name="details" rows="3"
-            placeholder="Add more description if needed..."></textarea>
-</div>
-
-<!-- Status -->
-<div class="form-group">
-    <label>Item Status</label>
-    <select class="form-control" name="item_status" required>
-        <option value="Owned">Owned</option>
-        <option value="Missing">Missing</option>
-        <option value="Recovered">Recovered</option>
-        <option value="Disposed">Disposed</option>
-    </select>
-
-    <small class="text-muted">
-        Choose the current condition of the item.
-    </small>
-</div>
-
-<!-- Buttons -->
-<button type="submit" name="submit" class="btn btn-block btn-submit">
-    Save Item
-</button>
-
-<a href="../userHomepage.php" class="back-btn">Go Back</a>
-
-</form>
-
-</div>
-</div>
-</div>
-
-</body>
-</html>

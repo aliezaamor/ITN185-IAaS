@@ -1,11 +1,11 @@
 <?php
+//Load necessary functions and ensure user authentication
 require_once 'auth.php';
+require_once 'user_model.php';
+$model = new user_Model();
 
 // Get logged-in user id
 $user_id = $_SESSION['user_id'] ?? null;
-
-require_once 'user_model.php';
-$model = new user_Model();
 
 // Fetch user data
 $user = $model->edit($user_id);
@@ -43,8 +43,55 @@ if (isset($_POST['update_profile'])) {
     <meta charset="UTF-8">
     <title>Edit Profile - MyEdu.Keep</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
 
-    <style>
+<?php include '../header.php'; ?>
+
+<div class="edit-wrapper">
+    <h1 class="title">Edit Profile</h1>
+
+     <!-- User profile update form -->
+    <div class="form-box">
+
+        <form method="POST">
+
+            <div class="field">
+                <label>Full Name</label>
+                <input type="text" name="user_name" value="<?php echo htmlspecialchars($user['user_name']); ?>" required>
+            </div>
+
+            <div class="field">
+                <label>Email Address</label>
+                <input type="email" name="user_email" value="<?php echo htmlspecialchars($user['user_email']); ?>" required>
+            </div>
+
+            <div class="field">
+                <label>Address</label>
+                <input type="text" name="address" value="<?php echo htmlspecialchars($user['address']); ?>">
+            </div>
+
+            <div class="field">
+                <label>Mobile Number</label>
+                <input type="text" name="mobile_number" value="<?php echo htmlspecialchars($user['mobile_number']); ?>">
+            </div>
+
+            <div class="actions">
+                <button type="submit" name="update_profile" class="btn save-btn">Save Changes</button>
+                <a href="user_profile.php" class="btn back-btn">Back</a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<?php include '../footer.php'; ?>
+
+</body>
+</html>
+
+<style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -121,50 +168,4 @@ if (isset($_POST['update_profile'])) {
         .back-btn { background: #8a4f2d; }
         .back-btn:hover { background: #6b3b20; }
 
-    </style>
-</head>
-<body>
-
-<?php include '../header.php'; ?>
-
-<div class="edit-wrapper">
-    <h1 class="title">Edit Profile</h1>
-
-    <div class="form-box">
-
-        <form method="POST">
-
-            <div class="field">
-                <label>Full Name</label>
-                <input type="text" name="user_name" value="<?php echo htmlspecialchars($user['user_name']); ?>" required>
-            </div>
-
-            <div class="field">
-                <label>Email Address</label>
-                <input type="email" name="user_email" value="<?php echo htmlspecialchars($user['user_email']); ?>" required>
-            </div>
-
-            <div class="field">
-                <label>Address</label>
-                <input type="text" name="address" value="<?php echo htmlspecialchars($user['address']); ?>">
-            </div>
-
-            <div class="field">
-                <label>Mobile Number</label>
-                <input type="text" name="mobile_number" value="<?php echo htmlspecialchars($user['mobile_number']); ?>">
-            </div>
-
-            <div class="actions">
-                <button type="submit" name="update_profile" class="btn save-btn">Save Changes</button>
-                <a href="user_profile.php" class="btn back-btn">Back</a>
-            </div>
-
-        </form>
-
-    </div>
-</div>
-
-<?php include '../footer.php'; ?>
-
-</body>
-</html>
+</style>

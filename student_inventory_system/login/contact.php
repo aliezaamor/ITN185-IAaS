@@ -8,8 +8,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact • MyEdu.Keep</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
 
-    <style>
+<body>
+
+<?php include 'login_header.php'; ?>
+
+<!-- Main Contact Section -->
+<div class="contact-container">
+    <h1>Contact Us</h1>
+    <p>
+        Have questions or need assistance?  
+        Reach out to us through our official email or social media channels.
+    </p>
+
+    <div class="contact-info">
+
+        <div class="info-box">
+            <h3>Email</h3>
+            <p>support@myedukeep.com</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Facebook</h3>
+            <p>@MyEduKeepOfficial</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Instagram</h3>
+            <p>@myedukeep</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Twitter / X</h3>
+            <p>@MyEduKeep</p>
+        </div>
+
+    </div>
+
+</div>
+
+<?php include '../footer.php'; ?>
+
+</body>
+</html>
+
+<style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -75,46 +119,3 @@
             margin: 0;
         }
     </style>
-</head>
-
-<body>
-
-<?php include 'login_header.php'; ?>
-
-<div class="contact-container">
-    <h1>Contact Us</h1>
-    <p>
-        Have questions or need assistance?  
-        Reach out to us through our official email or social media channels.
-    </p>
-
-    <div class="contact-info">
-
-        <div class="info-box">
-            <h3>Email</h3>
-            <p>support@myedukeep.com</p>
-        </div>
-
-        <div class="info-box">
-            <h3>Facebook</h3>
-            <p>@MyEduKeepOfficial</p>
-        </div>
-
-        <div class="info-box">
-            <h3>Instagram</h3>
-            <p>@myedukeep</p>
-        </div>
-
-        <div class="info-box">
-            <h3>Twitter / X</h3>
-            <p>@MyEduKeep</p>
-        </div>
-
-    </div>
-
-</div>
-
-<?php include '../footer.php'; ?>
-
-</body>
-</html>
