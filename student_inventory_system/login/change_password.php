@@ -43,50 +43,6 @@ if (isset($_POST['change_pass'])) {
     <meta charset="UTF-8">
     <title>Change Password - MyEdu.Keep</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-
-<?php include '../header.php'; ?>
-
-<!-- Main wrapper for password change UI -->
-<div class="pass-wrapper">
-
-    <h1 class="title">Change Password</h1>
-
-    <div class="form-box">
-
-        <form method="POST">
-
-            <div class="field">
-                <label>Old Password</label>
-                <input type="password" name="old_password" required>
-            </div>
-
-            <div class="field">
-                <label>New Password</label>
-                <input type="password" name="new_password" required>
-            </div>
-
-            <div class="field">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" required>
-            </div>
-
-            <div class="actions">
-                <button type="submit" name="change_pass" class="btn save-btn">Update Password</button>
-                <a href="user_profile.php" class="btn back-btn">Back</a>
-            </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<?php include '../footer.php'; ?>
-
-</body>
-</html>
 
 <style>
         body {
@@ -168,3 +124,47 @@ if (isset($_POST['change_pass'])) {
         .back-btn:hover { background: #6b3b20; }
 
     </style>
+</head>
+<body>
+
+<?php include '../header.php'; ?>
+
+<!-- Main wrapper for password change UI -->
+<div class="pass-wrapper">
+
+    <h1 class="title">Change Password</h1>
+
+    <div class="form-box">
+
+        <form method="POST">
+
+            <div class="field">
+                <label>Old Password</label>
+                <input type="password" name="old_password" required>
+            </div>
+
+            <div class="field">
+                <label>New Password</label>
+                <input type="password" name="new_password" required>
+            </div>
+
+            <div class="field">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" required>
+            </div>
+
+            <div class="actions">
+                <button type="submit" name="change_pass" class="btn save-btn">Update Password</button>
+                <a href="user_profile.php" class="btn back-btn">Back</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<?php include '../footer.php'; ?>
+
+</body>
+</html>

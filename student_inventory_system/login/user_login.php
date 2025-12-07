@@ -10,31 +10,6 @@
     <title>MyEdu.Keep</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-</head>
-<body>
-
-    <?php include 'login_header.php'; ?>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Organize Smarter, <br> Live Stress-Free</h1>
-            <p>Track, sort, and secure all your school essentials in one smart inventory system.</p>
-
-            <button class="btn-shop" onclick="window.location.href='user_index.php'">
-                LOG ITEMS
-            </button>
-        </div>
-
-        <img src="https://3.files.edl.io/57b6/21/08/03/152951-480c64db-8855-433b-9cea-7c55836efb1b.jpg" alt="School Supplies">
-    </section>
-
-
-    <?php include("../footer.php"); ?>
-
-</body>
-</html>
-
 <style>
 
 
@@ -195,3 +170,28 @@
             font-size: 40px;
         }
     </style>
+
+</head>
+<body>
+
+    <?php include 'login_header.php'; ?>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Organize Smarter, <br> Live Stress-Free</h1>
+            <p>Track, sort, and secure all your school essentials in one smart inventory system.</p>
+
+            <button class="btn-shop" onclick="window.location.href='user_index.php'">
+                LOG ITEMS
+            </button>
+        </div>
+
+        <img src="https://3.files.edl.io/57b6/21/08/03/152951-480c64db-8855-433b-9cea-7c55836efb1b.jpg" alt="School Supplies">
+    </section>
+
+
+    <?php include("../footer.php"); ?>
+
+</body>
+</html>

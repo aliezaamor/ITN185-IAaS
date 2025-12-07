@@ -13,63 +13,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-</head>
-<body>
-
-<?php include 'login_header.php'; ?>
-<div class="wrapper">
-
-      </div>
-      <div class="container">
-        <div class="form-box login">
-             <!-- Registration form -->
-            <form action="" method="post">
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="person"></ion-icon></span>
-                    <label for="username">Username</label>
-                    <input type="text" name="user_name" id="username" autocomplete="off" required>
-                </div>
-
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                    <label for="email">Email</label>
-                    <input type="text" name="user_email" id="email" autocomplete="off" required>
-                </div>
-
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="location"></ion-icon></span>
-                    <label for="">Address</label>
-                    <input type="text" name="address" id="address" autocomplete="off" required>
-                </div>
-
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="call"></ion-icon></ion-icon></span>
-                    <label for="">Mobile No.</label>
-                    <input type="text" name="mobile_number" id="mobile_number" autocomplete="off" required>
-                </div>
-
-                <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <label for="password">Password</label>
-                    <input type="password" name="user_password" id="password" autocomplete="off" required>
-                </div>
-
-                <div class="field">
-                     <!-- Submit button -->
-                    <input type="submit" class="btn" name="submit" value="Sign Up" required>
-                </div>
-                  <!-- Login link -->
-                <div class="login-register">
-                    Already have an account? <a href="user_index.php">Login</a>
-                </div>
-            </form>
-        </div>
-      </div>
-      <?php include '../footer.php'; ?>
-      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
-</html>
 
 <style>
     body {
@@ -186,3 +129,61 @@
     }
 
 </style>
+
+</head>
+<body>
+
+<?php include 'login_header.php'; ?>
+<div class="wrapper">
+
+      </div>
+      <div class="container">
+        <div class="form-box login">
+             <!-- Registration form -->
+            <form action="" method="post">
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <label for="username">Username</label>
+                    <input type="text" name="user_name" id="username" autocomplete="off" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <label for="email">Email</label>
+                    <input type="text" name="user_email" id="email" autocomplete="off" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="location"></ion-icon></span>
+                    <label for="">Address</label>
+                    <input type="text" name="address" id="address" autocomplete="off" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="call"></ion-icon></ion-icon></span>
+                    <label for="">Mobile No.</label>
+                    <input type="text" name="mobile_number" id="mobile_number" autocomplete="off" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <label for="password">Password</label>
+                    <input type="password" name="user_password" id="password" autocomplete="off" required>
+                </div>
+
+                <div class="field">
+                     <!-- Submit button -->
+                    <input type="submit" class="btn" name="submit" value="Sign Up" required>
+                </div>
+                  <!-- Login link -->
+                <div class="login-register">
+                    Already have an account? <a href="user_index.php">Login</a>
+                </div>
+            </form>
+        </div>
+      </div>
+      <?php include '../footer.php'; ?>
+      <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

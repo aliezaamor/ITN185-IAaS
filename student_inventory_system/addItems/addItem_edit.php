@@ -70,92 +70,8 @@ if (isset($_POST['submit'])) {
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <title>Edit Item</title>
-</head>
-
-<body>
-
-<h2 class="page-title">Edit Item</h2>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-5 mx-auto form-card">
-
-            <form method="post" enctype="multipart/form-data">
-
-            <!-- Item Name -->
-            <div class="form-group">
-                <label>Item Name</label>
-                <input type="text" class="form-control"
-                    name="item_name"
-                    value="<?= htmlspecialchars($item['item_name']) ?>" required>
-            </div>
-
-            <!-- Category -->
-            <div class="form-group">
-                <label>Item Category</label>
-                <select name="item_type" class="form-control">
-                    <?php
-                    $categories = [
-                    "Academic & Study Materials",
-                    "Digital & Electronic Devices",
-                    "Clothing & Accessories",
-                    "Bags & Storage Items",
-                    "Food & Drink Items",
-                    "Personal Care & Hygiene",
-                    "Sports & Activity Equipment",
-                    "Valuables"
-                    ];
-                    foreach($categories as $cat){
-                        $selected = ($item['item_type'] == $cat) ? "selected" : "";
-                        echo "<option $selected>$cat</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-
-            <!-- Picture -->
-            <div class="form-group">
-                <label>Update Picture (optional)</label><br>
-                <img src="<?= $item['item_picture']?>" style="width:100px;border-radius:10px;"><br><br>
-                <input type="file" class="form-control-file" name="item_picture">
-            </div>
-
-            <!-- Details -->
-            <div class="form-group">
-                <label>Item Details</label>
-                <textarea class="form-control" name="details" rows="3"><?= htmlspecialchars($item['details']) ?></textarea>
-            </div>
-
-            <!-- Status -->
-            <div class="form-group">
-                <label>Item Status</label>
-                <select name="item_status" class="form-control">
-                    <?php
-                    $statuses = ["Owned","Missing","Recovered","Disposed"];
-                    foreach($statuses as $st){
-                        $selected = ($item['item_status'] == $st) ? "selected" : "";
-                        echo "<option $selected>$st</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-
-            <!-- Submit Button -->
-            <button name="submit" class="btn btn-submit btn-block"> Update Item </button>
-
-            <a href="../userHomepage.php" class="back-btn">Go Back</a>
-
-            </form>
-
-        </div>
-    </div>
-</div>
-
-</body>
-</html>
 
 <style>
-
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap');
@@ -253,3 +169,87 @@ textarea:focus{
     background:#ffca28;
 }
 </style>
+
+</head>
+<body>
+
+<h2 class="page-title">Edit Item</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto form-card">
+
+            <form method="post" enctype="multipart/form-data">
+
+            <!-- Item Name -->
+            <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" class="form-control"
+                    name="item_name"
+                    value="<?= htmlspecialchars($item['item_name']) ?>" required>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label>Item Category</label>
+                <select name="item_type" class="form-control">
+                    <?php
+                    $categories = [
+                    "Academic & Study Materials",
+                    "Digital & Electronic Devices",
+                    "Clothing & Accessories",
+                    "Bags & Storage Items",
+                    "Food & Drink Items",
+                    "Personal Care & Hygiene",
+                    "Sports & Activity Equipment",
+                    "Valuables"
+                    ];
+                    foreach($categories as $cat){
+                        $selected = ($item['item_type'] == $cat) ? "selected" : "";
+                        echo "<option $selected>$cat</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <!-- Picture -->
+            <div class="form-group">
+                <label>Update Picture (optional)</label><br>
+                <img src="<?= $item['item_picture']?>" style="width:100px;border-radius:10px;"><br><br>
+                <input type="file" class="form-control-file" name="item_picture">
+            </div>
+
+            <!-- Details -->
+            <div class="form-group">
+                <label>Item Details</label>
+                <textarea class="form-control" name="details" rows="3"><?= htmlspecialchars($item['details']) ?></textarea>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+                <label>Item Status</label>
+                <select name="item_status" class="form-control">
+                    <?php
+                    $statuses = ["Owned","Missing","Recovered","Disposed"];
+                    foreach($statuses as $st){
+                        $selected = ($item['item_status'] == $st) ? "selected" : "";
+                        echo "<option $selected>$st</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button name="submit" class="btn btn-submit btn-block"> Update Item </button>
+
+            <a href="../userHomepage.php" class="back-btn">Go Back</a>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

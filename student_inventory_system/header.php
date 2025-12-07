@@ -17,58 +17,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-</head>
-
-<!-- ================= HEADER ================= -->
-<header class="top-header">
-
-    <!-- LOGO -->
-    <a href="<?= $homelink ?>" class="brand">
-    MyEdu<span>.Keep</span>
-</a>
-
-
-    <!-- SEARCH -->
-    <div class="search-box">
-    <form action="<?= $basePath ?>addItems/view_items.php" method="GET">
-        <input type="text" name="search" placeholder="Search items..." required>
-        <ion-icon name="search-outline" onclick="this.parentNode.parentNode.submit()"></ion-icon>
-    </form>
-</div>
-
-
-    <!-- NAV -->
-    <nav class="nav-pill">
-    <a class="<?= basename($_SERVER['PHP_SELF']) == 'userHomepage.php' ? 'active' : '' ?>" 
-       href="<?= $homelink ?>">HOME</a>
-
-    <a class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>" 
-       href="<?= $aboutlink ?>">ABOUT</a>
-
-    <a class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>" 
-       href="<?= $contactlink ?>">CONTACT</a>
-</nav>
-
-
-    <!-- ========== USER DROPDOWN ========== -->
-    <div class="user-dropdown">
-        <div class="user-trigger">
-            <ion-icon name="person-circle-outline"></ion-icon>
-            <span><?php echo htmlspecialchars($username); ?></span>
-        </div>
-
-        <div class="dropdown-menu">
-            <p><strong><?php echo htmlspecialchars($username); ?></strong></p>
-            <p class="email"><?php echo htmlspecialchars($email); ?></p>
-
-            <a href="<?= $profileLink ?>" class="dropdown-btn">Profile</a>
-            <a href="<?= $logoutLink ?>" class="dropdown-btn logout">Logout</a>
-        </div>
-    </div>
-
-</header>
-<!-- ================= END HEADER ================= -->
-
 
 <!-- ================= HEADER STYLES ================= -->
 <style>
@@ -209,6 +157,57 @@
 }
 </style>
 
+
+</head>
+
+<!-- ================= HEADER ================= -->
+<header class="top-header">
+
+    <!-- LOGO -->
+    <a href="<?= $homelink ?>" class="brand">
+    MyEdu<span>.Keep</span>
+</a>
+
+
+    <!-- SEARCH -->
+    <div class="search-box">
+    <form action="<?= $basePath ?>addItems/view_items.php" method="GET">
+        <input type="text" name="search" placeholder="Search items..." required>
+        <ion-icon name="search-outline" onclick="this.parentNode.parentNode.submit()"></ion-icon>
+    </form>
+</div>
+
+
+    <!-- NAV -->
+    <nav class="nav-pill">
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'userHomepage.php' ? 'active' : '' ?>" 
+       href="<?= $homelink ?>">HOME</a>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '' ?>" 
+       href="<?= $aboutlink ?>">ABOUT</a>
+
+    <a class="<?= basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '' ?>" 
+       href="<?= $contactlink ?>">CONTACT</a>
+</nav>
+
+
+    <!-- ========== USER DROPDOWN ========== -->
+    <div class="user-dropdown">
+        <div class="user-trigger">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <span><?php echo htmlspecialchars($username); ?></span>
+        </div>
+
+        <div class="dropdown-menu">
+            <p><strong><?php echo htmlspecialchars($username); ?></strong></p>
+            <p class="email"><?php echo htmlspecialchars($email); ?></p>
+
+            <a href="<?= $profileLink ?>" class="dropdown-btn">Profile</a>
+            <a href="<?= $logoutLink ?>" class="dropdown-btn logout">Logout</a>
+        </div>
+    </div>
+
+</header>
 <!-- ================= JS for Dropdown ================= -->
 <script>
 document.querySelector('.user-trigger').addEventListener('click', function() {

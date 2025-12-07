@@ -34,48 +34,6 @@ exit();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduMart — Login</title>
-</head>
-
-<body>
-
-<?php include 'login_header.php'; ?>
-
-<div class="login-wrapper">
-    <div class="login-box">
-
-        <h2>Account Login</h2>
-
-        <!-- Login form -->
-        <form action="" method="post">
-            <div class="input-box">
-                <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                <label>Email</label>
-                <input type="text" name="user_email" required autocomplete="off">
-            </div>
-
-            <div class="input-box">
-                <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                <label>Password</label>
-                <input type="password" name="user_password" required autocomplete="off">
-            </div>
-
-            <input type="submit" class="btn" name="submit" value="Login">
-
-            <div class="login-register">
-                Don't have an account? <a href="user_add.php">Sign Up</a>
-            </div>
-        </form>
-
-    </div>
-</div>
-
-<?php include '../footer.php'; ?>
-
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-</body>
-</html>
 
 <style>
         body {
@@ -168,4 +126,47 @@ exit();
             font-weight: bold;
             text-decoration: none;
         }
-    </style>
+    </style>    
+
+</head>
+
+<body>
+
+<?php include 'login_header.php'; ?>
+
+<div class="login-wrapper">
+    <div class="login-box">
+
+        <h2>Account Login</h2>
+
+        <!-- Login form -->
+        <form action="" method="post">
+            <div class="input-box">
+                <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                <label>Email</label>
+                <input type="text" name="user_email" required autocomplete="off">
+            </div>
+
+            <div class="input-box">
+                <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                <label>Password</label>
+                <input type="password" name="user_password" required autocomplete="off">
+            </div>
+
+            <input type="submit" class="btn" name="submit" value="Login">
+
+            <div class="login-register">
+                Don't have an account? <a href="user_add.php">Sign Up</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<?php include '../footer.php'; ?>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

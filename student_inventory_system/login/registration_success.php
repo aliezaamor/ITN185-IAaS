@@ -6,34 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MyEdu.Keep — Registration Successful</title>
-</head>
-
-<body>
-
-<?php include 'login_header.php'; ?>
-
-<div class="login-wrapper">
-    <div class="login-box">
-
-        <h2>Registration Successful!</h2>
-
-        <div class="message">
-            Your account has been created successfully.<br>
-            You can now log in using your credentials.
-        </div>
-
-        <a href="user_index.php" class="btn">Login Now</a>
-
-    </div>
-</div>
-
-<?php include '../footer.php'; ?>
-
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-</body>
-</html>
 
 <style>
         body {
@@ -89,3 +61,33 @@
             background: #6b4a34;
         }
 </style>
+
+</head>
+
+<body>
+
+<?php include 'login_header.php'; ?>
+
+<div class="login-wrapper">
+    <div class="login-box">
+
+        <h2>Registration Successful!</h2>
+
+        <div class="message">
+            Your account has been created successfully.<br>
+            You can now log in using your credentials.
+        </div>
+
+        <a href="user_index.php" class="btn">Login Now</a>
+
+    </div>
+</div>
+
+<?php include '../footer.php'; ?>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
+
