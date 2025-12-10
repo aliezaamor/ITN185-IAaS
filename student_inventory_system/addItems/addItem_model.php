@@ -126,28 +126,32 @@ class addItem_Model {
 
     // UPDATE ITEM
     public function update($data) {
-        $item_id = $data['item_id'];
-        $item_name = $data['item_name'];
-        $details = $data['details'];
-        $item_status = $data['item_status'];
-        $item_type = $data['item_type'];
+    $item_id = $data['item_id'];
+    $item_name = $data['item_name'];
+    $details = $data['details'];
+    $item_status = $data['item_status'];
+    $item_type = $data['item_type'];
 
-        // Update picture only if exists
-        $item_picture_query = "";
-        if (!empty($data['item_picture'])) {
-            $item_picture_query = ", item_picture='" . $data['item_picture'] . "'";
-        }
+    // Update picture only if exists
+    $item_picture = !empty($data['item_picture']) ? $data['item_picture'] : null;
 
+    if ($item_picture) {
         $query = "UPDATE items 
-                  SET item_name='$item_name',
-                      details='$details',
-                      item_status='$item_status',
-                      item_type='$item_type'
-                      $item_picture_query
-                  WHERE item_id='$item_id'";
-
-        return $this->conn->query($query);
+                  SET item_name = ?, details = ?, item_status = ?, item_type = ?, item_picture = ?
+                  WHERE item_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("sssssi", $item_name, $details, $item_status, $item_type, $item_picture, $item_id);
+    } else {
+        $query = "UPDATE items 
+                  SET item_name = ?, details = ?, item_status = ?, item_type = ?
+                  WHERE item_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ssssi", $item_name, $details, $item_status, $item_type, $item_id);
     }
+
+    return $stmt->execute();
+}
+
 
     // FETCH ALL ITEMS
     public function fetchAllItems() {
